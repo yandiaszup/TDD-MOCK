@@ -5,8 +5,7 @@ import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.dominio.Usuario;
 
 import builder.CriadorDeLeilao;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.List;
 
@@ -18,16 +17,38 @@ public class TesteDoAvaliador {
     private Usuario joao;
     private Usuario jose;
     private Usuario maria;
+
+    @BeforeClass
+    public static void testandoBeforeClass() {
+        System.out.println("before class");
+    }
+
+    @AfterClass
+    public static void testandoAfterClass() {
+        System.out.println("after class");
+    }
+
     @Before
-    public void criaAvaliador(){
+    public void criaAvaliador() {
         this.leiloeiro = new Avaliador();
+        System.out.println("Inicializando teste!");
         this.joao = new Usuario("João");
         this.jose = new Usuario("jose");
         this.maria = new Usuario("maria");
     }
 
+    @After
+    public void finaliza() {
+        System.out.println("fim");
+    }
 
+    @Test(expected = RuntimeException.class)
+    public void naoDeveAvaliarLeiloesSemNenhumLanceDado() {
 
+        Leilao leilao = new CriadorDeLeilao().para("Playstation 3 Novo").constroi();
+        leiloeiro.avalia(leilao);
+
+    }
     @Test
     public void deveEntenderLancesEmOrdemCrescente (){
 
