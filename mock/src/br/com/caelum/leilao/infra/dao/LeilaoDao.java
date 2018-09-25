@@ -19,6 +19,8 @@ public class LeilaoDao {
 
 	private Connection conexao;
 
+	public static String teste() { return "teste"; }
+
 	public LeilaoDao() {
 		try {
 			this.conexao = DriverManager.getConnection(
